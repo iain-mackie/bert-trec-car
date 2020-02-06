@@ -1,0 +1,38 @@
+######################
+Commands to run to make files read/write
+
+- end of scripts groupwrite permissons (run chmod -R 775 *)
+- copy scp (chmod -R 775 * && chgrp -R nfsnobody *)
+
+
+######################
+OpenShift: iainmackie/bert-trec-car
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: bert-trec-car
+  namespace: imackieproject
+spec:
+  volumes:
+  - name: nfs-access
+    persistentVolumeClaim:
+      claimName: imackievol1claim
+  containers:
+  - env: 
+    - name: DATA
+      value: /nfs/trec_car/data/car_baseline_data/
+    - name: BERT
+      value: /nfs/trec_car/data/paragraphs/
+    - name: INIT
+      value: /nfs/trec_car/data/paragraphs/
+    - name: OUTPUT
+      value: /nfs/trec_car/data/paragraphs/
+    name: bert-trec-car-container
+    image: iainmackie/bert-trec-car:latest
+    imagePullPolicy: IfNotPresent
+    volumeMounts: 
+    - mountPath: /nfs/
+      name: nfs-access
+  restartPolicy: Never
+

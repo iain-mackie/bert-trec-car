@@ -15,6 +15,22 @@ RUN git clone https://github.com/gsgoncalves/bert4trec
 RUN python3 -m virtualenv --python=/usr/bin/python3 /opt/venv
 RUN . /opt/venv/bin/activate && pip install -r bert4trec/requirements.txt
 
-WORKDIR 
-CMD . /opt/venv/bin/activate && exec python bert4trec/run_treccar.py
+# Run Experiment
+CMD . /opt/venv/bin/activate && exec python bert4trec/run_treccar.py \
+	--data_dir=${DATA} \
+  	--bert_config_file=${BERT} \
+  	--init_checkpoint=${INIT} \
+  	--output_dir=${OUTPUT} \
+  	--trec_output=True \
+  	--do_train=False \
+  	--do_eval=True \
+  	--num_train_steps=400000 \
+  	--num_warmup_steps=40000 \
+  	--train_batch_size=32 \
+  	--eval_batch_size=32 \
+  	--learning_rate=1e-6 \
+  	--max_dev_examples=3000 \
+  	--num_dev_docs=10 \
+  	--max_test_examples=None \
+  	--num_test_docs=1000
 
