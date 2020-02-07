@@ -379,7 +379,8 @@ def main(_):
     tf.logging.info("Done Training!")
 
   if FLAGS.do_eval:
-    for set_name in ["dev", "test"]:
+    print(FLAGS)
+    for set_name in ["test"]:
       tf.logging.info("***** Running evaluation on the {} set*****".format(
           set_name))
       tf.logging.info("  Batch size = %d", FLAGS.eval_batch_size)
