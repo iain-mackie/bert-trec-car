@@ -1,4 +1,4 @@
-FROM iainmackie/bert-trec-car-base-env:v4
+FROM iainmackie/bert-trec-car-base-env:v5
 
 MAINTAINER iain mackie
 

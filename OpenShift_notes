@@ -106,7 +106,7 @@ spec:
     - name: BERT
       value: '/nfs/trec_car/model/trained_bert_large/bert_config.json'
     - name: INIT
-      value: '/nfs/trec_car/pretrained_bert_large/pretrained_models_exp898_model.ckpt-1000000'
+      value: '/nfs/trec_car/model/pretrained_bert_large/pretrained_models_exp898_model.ckpt-1000000'
     - name: OUTPUT
       value: '/nfs/trec_car/data/car_baseline_data/'
     - name: TREC_OUTPUT
@@ -116,10 +116,60 @@ spec:
     - name: EVAL
       value: 'True'
     name: bert-trec-car-run-eval-container-simple
-    image: iainmackie/bert-trec-car-run-eval-simple:v3
+    image: iainmackie/bert-trec-car-run-eval-simple:v5
     imagePullPolicy: IfNotPresent
     volumeMounts: 
     - mountPath: /nfs/
       name: nfs-access
+  restartPolicy: Never
+
+
+######################
+OpenShift: iainmackie/bert-trec-car-run-eval-simple-gpu
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: bert-trec-car-run-eval-simple
+  namespace: imackieproject
+spec:
+  volumes:
+  - name: nfs-access
+    persistentVolumeClaim:
+      claimName: imackievol1claim
+  nodeSelector:
+    node-role.ida/gputitan: "true"
+  containers:
+  - env: 
+    - name: DATA
+      value: '/nfs/trec_car/data/car_baseline_data/'
+    - name: BERT
+      value: '/nfs/trec_car/model/trained_bert_large/bert_config.json'
+    - name: INIT
+      value: '/nfs/trec_car/model/pretrained_bert_large/pretrained_models_exp898_model.ckpt-1000000'
+    - name: OUTPUT
+      value: '/nfs/trec_car/data/car_baseline_data/'
+    - name: TREC_OUTPUT
+      value: 'True'
+    - name: TRAIN
+      value: 'False'
+    - name: EVAL
+      value: 'True'
+    name: bert-trec-car-run-eval-container-simple
+    image: iainmackie/bert-trec-car-run-eval-simple:v5
+    resources:
+      requests:
+        cpu: "2000m"
+        memory: "16Gi"
+        nvidia.com/gpu: 1 
+      limits:
+          cpu: "8000m"
+          memory: "32Gi"
+          nvidia.com/gpu: 1 
+    imagePullPolicy: IfNotPresent
+    volumeMounts: 
+    - mountPath: /nfs/
+      name: nfs-access
+  restartPolicy: Never
   restartPolicy: Never
 

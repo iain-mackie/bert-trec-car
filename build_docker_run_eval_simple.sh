@@ -5,7 +5,7 @@ echo "Trying to build docker image from:" $DOCKER_PATH;
 
 if [ -f "$DOCKER_PATH" ]; then
   echo "file exits"
-  sudo docker build -t iainmackie/bert-trec-car-run-eval-simple:v3 -f $DOCKER_PATH .
+  sudo docker build -t iainmackie/bert-trec-car-run-eval-simple:v5 -f $DOCKER_PATH .
   # sudo docker run -it iainmackie/bert-trec-car
 
 else
