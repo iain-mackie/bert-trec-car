@@ -379,8 +379,8 @@ def main(_):
     tf.logging.info("Done Training!")
 
   if FLAGS.do_eval:
-    tr.logging.info("*** FLAGS ***")
-    tr.logging(print(FLAGS))
+    tf.logging.info("*** FLAGS ***")
+    tf.logging.info(FLAGS)
     for set_name in ["test"]:
       tf.logging.info("***** Running evaluation on the {} set*****".format(
           set_name))

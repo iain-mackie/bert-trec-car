@@ -7,7 +7,7 @@ Commands to run to make files read/write
 ######################
 OpenShift: iainmackie/bert-trec-car-base-env
 
-apiVersion: v1
+apiVersion: v4
 kind: Pod
 metadata:
   name: bert-trec-car
@@ -116,7 +116,7 @@ spec:
     - name: EVAL
       value: 'True'
     name: bert-trec-car-run-eval-container-simple
-    image: iainmackie/bert-trec-car-run-eval-simple:v1
+    image: iainmackie/bert-trec-car-run-eval-simple:v3
     imagePullPolicy: IfNotPresent
     volumeMounts: 
     - mountPath: /nfs/
