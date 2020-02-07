@@ -4,9 +4,8 @@ Commands to run to make files read/write
 - end of scripts groupwrite permissons (run chmod -R 775 *)
 - copy scp (chmod -R 775 * && chgrp -R nfsnobody *)
 
-
 ######################
-OpenShift: iainmackie/bert-trec-car
+OpenShift: iainmackie/bert-trec-car-base-env
 
 apiVersion: v1
 kind: Pod
@@ -19,17 +18,105 @@ spec:
     persistentVolumeClaim:
       claimName: imackievol1claim
   containers:
+  - env:
+    command:
+      - 'sleep'
+    args:
+      - '1000000' 
+    name: bert-trec-car-container
+    image: iainmackie/bert-trec-car-base-env:v1
+    imagePullPolicy: IfNotPresent
+    volumeMounts: 
+    - mountPath: /nfs/
+      name: nfs-access
+  restartPolicy: Never
+
+######################
+OpenShift: iainmackie/bert-trec-car-run-eval
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: bert-trec-car-run-eval
+  namespace: imackieproject
+spec:
+  volumes:
+  - name: nfs-access
+    persistentVolumeClaim:
+      claimName: imackievol1claim
+  containers:
   - env: 
     - name: DATA
-      value: /nfs/trec_car/data/car_baseline_data/
+      value: '/nfs/trec_car/data/car_baseline_data/'
     - name: BERT
-      value: /nfs/trec_car/data/paragraphs/
+      value: '/nfs/trec_car/model/trained_bert_large/bert_config.json'
     - name: INIT
-      value: /nfs/trec_car/data/paragraphs/
+      value: '/nfs/trec_car/pretrained_bert_large/pretrained_models_exp898_model.ckpt-1000000'
     - name: OUTPUT
-      value: /nfs/trec_car/data/paragraphs/
-    name: bert-trec-car-container
-    image: iainmackie/bert-trec-car:latest
+      value: '/nfs/trec_car/data/car_baseline_data/'
+    - name: TREC_OUTPUT
+      value: 'True'
+    - name: TRAIN
+      value: 'False'
+    - name: EVAL
+      value: 'True'
+    - name: TRAIN_STEPS
+      vnum_dev_docsalue: '400000'
+    - name: WARM_STEPS
+      value: '40000'
+    - name: TRAIN_BATCH
+      value: '32'
+    - name: EVAL_BATCH
+      value: '32'
+    - name: LR
+      value: '1e-6'
+    - name: MAX_DEV_EX
+      value: '3000'
+    - name: DEV_DOCS
+      value: '10'
+    - name: MAX_TEST_EX
+      value: '1000'
+    - name: TEST_DOCS
+      value: '1000'
+    name: bert-trec-car-run-eval-container
+    image: iainmackie/bert-trec-car-run-eval:v3
+    imagePullPolicy: IfNotPresent
+    volumeMounts: 
+    - mountPath: /nfs/
+      name: nfs-access
+  restartPolicy: Never
+
+######################
+OpenShift: iainmackie/bert-trec-car-run-eval-simple
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: bert-trec-car-run-eval-simple
+  namespace: imackieproject
+spec:
+  volumes:
+  - name: nfs-access
+    persistentVolumeClaim:
+      claimName: imackievol1claim
+  containers:
+  - env: 
+    - name: DATA
+      value: '/nfs/trec_car/data/car_baseline_data/'
+    - name: BERT
+      value: '/nfs/trec_car/model/trained_bert_large/bert_config.json'
+    - name: INIT
+      value: '/nfs/trec_car/pretrained_bert_large/pretrained_models_exp898_model.ckpt-1000000'
+    - name: OUTPUT
+      value: '/nfs/trec_car/data/car_baseline_data/'
+    - name: TREC_OUTPUT
+      value: 'True'
+    - name: TRAIN
+      value: 'False'
+    - name: EVAL
+      value: 'True'
+    name: bert-trec-car-run-eval-container-simple
+    image: iainmackie/bert-trec-car-run-eval-simple:v1
     imagePullPolicy: IfNotPresent
     volumeMounts: 
     - mountPath: /nfs/
