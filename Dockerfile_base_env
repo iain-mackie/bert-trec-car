@@ -9,10 +9,10 @@ RUN apt-get update && apt-get install \
 
 
 # Pull required code
-RUN git clone https://github.com/gsgoncalves/bert4trec 
+RUN git clone https://github.com/iain-mackie/bert-trec-car
 
 # Build virtualenv
 RUN python3 -m virtualenv --python=/usr/bin/python3 /opt/venv
 RUN . /opt/venv/bin/activate \
-	&& pip install -r bert4trec/requirements.txt \
+	&& pip install -r bert-trec-car/dl4marco-bert/requirements.txt \
 	&& pip install tensorflow==1.14.0 

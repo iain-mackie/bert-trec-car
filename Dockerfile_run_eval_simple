@@ -1,0 +1,14 @@
+FROM iainmackie/bert-trec-car-base-env:v1
+
+MAINTAINER iain mackie
+
+# Run Experiment
+CMD . /opt/venv/bin/activate && exec python bert4trec/run_treccar.py \
+	--data_dir=${DATA} \
+  	--bert_config_file=${BERT} \
+  	--init_checkpoint=${INIT} \
+  	--output_dir=${OUTPUT} \
+  	--trec_output=${TREC_OUTPUT} \
+  	--do_train=${TRAIN} \
+  	--do_eval=${EVAL} 
+
