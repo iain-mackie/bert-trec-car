@@ -148,7 +148,7 @@ spec:
     - name: INIT
       value: '/nfs/trec_car/model/pretrained_bert_large/pretrained_models_exp898_model.ckpt-1000000'
     - name: OUTPUT
-      value: '/nfs/trec_car/data/car_baseline_data/'
+      value: '/nfs/trec_car/data/car_baseline_data/output'
     - name: TREC_OUTPUT
       value: 'True'
     - name: TRAIN
@@ -163,13 +163,13 @@ spec:
         memory: "16Gi"
         nvidia.com/gpu: 1 
       limits:
-          cpu: "8000m"
-          memory: "32Gi"
-          nvidia.com/gpu: 1 
+        cpu: "8000m"
+        memory: "32Gi"
+        nvidia.com/gpu: 1 
     imagePullPolicy: IfNotPresent
     volumeMounts: 
     - mountPath: /nfs/
       name: nfs-access
   restartPolicy: Never
-  restartPolicy: Never
+
 
