@@ -24,13 +24,13 @@ FLAGS = flags.FLAGS
 ## Required parameters
 flags.DEFINE_string(
     "data_dir", 
-    "./data/tfrecord/",
+    "/nfs/trec_car/data/car_baseline_data/",
     "The input data dir. Should contain the .tfrecord files and the supporting "
     "query-docids mapping files.")
 
 flags.DEFINE_string(
     "bert_config_file",
-    "./data/bert/pretrained_models/uncased_L-24_H-1024_A-16/bert_config.json",
+    "/nfs/trec_car/model/trained_bert_large/bert_config.json",
     "The config json file corresponding to the pre-trained BERT model. "
     "This specifies the model architecture.")
 
@@ -44,7 +44,7 @@ flags.DEFINE_boolean(
 
 flags.DEFINE_string(
     "init_checkpoint",
-    "/path_to_bert_pretrained_on_treccar/model.ckpt-1000000",
+    "/nfs/trec_car/model/pretrained_bert_large/pretrained_models_exp898_model.ckpt-1000000",
     "Initial checkpoint (usually from a pre-trained BERT model).")
 
 flags.DEFINE_integer(
@@ -53,7 +53,7 @@ flags.DEFINE_integer(
     "Sequences longer than this will be truncated, and sequences shorter "
     "than this will be padded.")
 
-flags.DEFINE_bool("do_train", True, "Whether to run training.")
+flags.DEFINE_bool("do_train", False, "Whether to run training.")
 
 flags.DEFINE_bool("do_eval", True, "Whether to run eval on the dev set.")
 
