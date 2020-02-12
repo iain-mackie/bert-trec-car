@@ -138,7 +138,7 @@ spec:
     persistentVolumeClaim:
       claimName: imackievol1claim
   nodeSelector:
-    node-role.ida/gputitan: "true"
+    node-role.ida/gpu2080ti: "true"
   containers:
   - env: 
     - name: DATA
@@ -159,17 +159,18 @@ spec:
     image: iainmackie/bert-trec-car-run-eval-simple:v5
     resources:
       requests:
-        cpu: "2000m"
-        memory: "16Gi"
-        nvidia.com/gpu: 1 
-      limits:
         cpu: "8000m"
         memory: "32Gi"
+        nvidia.com/gpu: 1 
+      limits:
+        cpu: "32000m"
+        memory: "128Gi"
         nvidia.com/gpu: 1 
     imagePullPolicy: IfNotPresent
     volumeMounts: 
     - mountPath: /nfs/
       name: nfs-access
+  serviceAccount: containerroot
   restartPolicy: Never
 
 
