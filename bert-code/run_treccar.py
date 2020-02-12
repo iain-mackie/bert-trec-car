@@ -35,7 +35,7 @@ flags.DEFINE_string(
     "This specifies the model architecture.")
 
 flags.DEFINE_string(
-    "output_dir", "./data/output",
+    "output_dir", "/nfs/trec_car/data/car_baseline_data/output",
     "The output directory where the model checkpoints will be written.")
 
 flags.DEFINE_boolean(
