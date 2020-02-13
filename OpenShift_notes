@@ -146,9 +146,9 @@ spec:
     - name: BERT
       value: '/nfs/trec_car/model/trained_bert_large/bert_config.json'
     - name: INIT
-      value: '/nfs/trec_car/model/pretrained_bert_large/pretrained_models_exp898_model.ckpt-1000000'
+      value: '/nfs/trec_car/model/trained_bert_large/model.ckpt-100000'
     - name: OUTPUT
-      value: '/nfs/trec_car/data/car_baseline_data/output'
+      value: '/nfs/trec_car/data/car_baseline_data/output_run2'
     - name: TREC_OUTPUT
       value: 'True'
     - name: TRAIN
@@ -159,7 +159,7 @@ spec:
     image: iainmackie/bert-trec-car-run-eval-simple:v5
     resources:
       requests:
-        cpu: "8000m"
+        cpu: "16000m"
         memory: "32Gi"
         nvidia.com/gpu: 1 
       limits:
