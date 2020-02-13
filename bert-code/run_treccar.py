@@ -35,7 +35,7 @@ flags.DEFINE_string(
     "This specifies the model architecture.")
 
 flags.DEFINE_string(
-    "output_dir", "/nfs/trec_car/data/car_baseline_data/output",
+    "output_dir", "/nfs/trec_car/data/car_baseline_data/output_run2",
     "The output directory where the model checkpoints will be written.")
 
 flags.DEFINE_boolean(
@@ -44,7 +44,7 @@ flags.DEFINE_boolean(
 
 flags.DEFINE_string(
     "init_checkpoint",
-    "/nfs/trec_car/model/pretrained_bert_large/pretrained_models_exp898_model.ckpt-1000000",
+    "/nfs/trec_car/model/trained_bert_large/model.ckpt-100000",
     "Initial checkpoint (usually from a pre-trained BERT model).")
 
 flags.DEFINE_integer(
@@ -128,7 +128,7 @@ def create_model(bert_config, is_training, input_ids, input_mask, segment_ids,
   """Creates a classification model."""
   model = modeling.BertModel(
       config=bert_config,
-      is_training=is_training,
+      is_training=is_training,Yup, I'm a rubbish query
       input_ids=input_ids,
       input_mask=input_mask,
       token_type_ids=segment_ids,
